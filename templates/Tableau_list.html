@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据可视化界面</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/jquery-3.3.1.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+        <img src="/static/img/beijing1.jpg" width="100%" height="100%"/>
+    </div>
+    <style>
+        .aa {
+            display: none;
+        }
+
+        .aa:hover {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="body">
+    <img src="/static/img/xgdl.png" width="100%" height="100%"/>
+</div>
+
+<div>
+    <h1>欢迎进入数据可视化界面！</h1>
+</div>
+<!-- Button trigger modal -->
+{#1#}
+
+
+<div class="media">
+    <div class="media-left">
+        <button type="button" data-toggle="modal" data-target="#myModal">
+            <img class="media-object" src="/static/images/男女比例.png" alt="...">
+        </button>
+    </div>
+    <div class="media-body">
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">班级男女比例</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/index/" method="post">
+                                <div class="form-group">
+                                    <p>班级:<select name="pclass" class="form-control">
+                                        {% for pclass in pclass_list %}
+                                            <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </p>
+                                </div>
+                                <button type="submit" class="btn btn-primary">点击生成图表</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+
+{#2#}
+<div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
+        学院学生所在省份
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">学院学生所在省份</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{#3#}
+<div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal3">
+        各省各地区学生分布
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">各省各地区学生分布</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/index3/" method="post">
+                        <div class="form-group">
+                            <p>生源地: <input type="text" name="birthplace" class=" form-control"></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">点击生成图表</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#4#}
+<div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal4">
+        本班各科成绩详情
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">本班各科成绩</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/index4/" method="post">
+                        <div class="form-group">
+                            <p>课程名称:<select name="course" class="form-control">
+                                {% for course in course_list %}
+
+                                    <option value="{{ course.id }}">{{ course.name }}</option>
+
+                                {% endfor %}
+                            </select>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>班级:<select name="pclass" class="form-control">
+                                {% for pclass in pclass_list %}
+                                    <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                                {% endfor %}
+                            </select>
+                            </p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">点击生成图表</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#5#}
+<div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal5">
+        本班科目成绩对比图
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">本班科目成绩对比图</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/index5/" method="post">
+                        <div class="form-group">
+                            <p>班级:<select name="pclass" class="form-control">
+                                {% for pclass in pclass_list %}
+                                    <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                                {% endfor %}
+                            </select>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>课程名称:<select name="courses" class="form-control" multiple>
+                                {% for course in courses %}
+
+                                    <option value="{{ course.id }}">{{ course.name }}</option>
+
+                                {% endfor %}
+                            </select>
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">点击生成图表</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#6#}
+<div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal6">
+        各班科目平均成绩比较
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">各班科目平均成绩对比图</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/index6/" method="post">
+                        <div class="form-group">
+                            <p>班级:<select name="pclass" class="form-control" multiple>
+                                {% for pclass in pclass_list %}
+                                    <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                                {% endfor %}
+                            </select>
+                            </p>
+                        </div>
+                        <div class="form-group">
+
+                            <p>课程名称:<select name="course" class="form-control">
+                                {% for course in course_list %}
+
+                                    <option value="{{ course.id }}">{{ course.name }}</option>
+
+                                {% endfor %}
+                            </select>
+                            </p>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">点击生成图表</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

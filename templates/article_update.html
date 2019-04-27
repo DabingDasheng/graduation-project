@@ -1,0 +1,69 @@
+{% extends 'backend_base.html' %}
+
+{% block blog_left %}
+    <div class="list-group">
+        <a href="JavaScript:void(0)" class="list-group-item active">操作</a>
+        <a href="{% url 'article_add' %}?name={{ name }}" class="list-group-item">添加新文章</a>
+        <a href="JavaScript:void(0)" class="list-group-item">草稿箱</a>
+        <a href="JavaScript:void(0)" class="list-group-item">设置默认编辑器</a>
+        <a href="JavaScript:void(0)" class="list-group-item">备份文章</a>
+    </div>
+{% endblock %}
+
+{% block article %}
+    <h1>文章修改</h1>
+    <hr>
+    <form action="" method="post">
+        <h3>标题</h3>
+        <input type="text" style="width: 100%;" class="title" value="{{ article.title }}">
+        <h3>内容(KindEdit编辑器，不支持拖放/粘贴上传图片)</h3>
+        <textarea name="article_content" id="article_content" class="content">{{ article.content|safe }}</textarea>
+    </form>
+
+    <div style="margin-top: 20px;">
+
+        <button type="button" class="col-md-1 btn btn-warning btn-md article_add_btn">保存</button>
+        <a href="{% url 'backend' %}?name={{ name }}">
+            <button type="button" class="col-md-1 col-md-offset-1 btn btn-warning btn-md">取消</button>
+        </a>
+
+    </div>
+    <script charset="utf-8" src="/static/kindeditor/kindeditor-all.js"></script>
+    <script>
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#article_content',{
+                    width:'100%',
+                    height:'500px',
+                    resizeType:0,
+                    uploadJson:'/upload_img/',
+                    extraFileUploadParams:{'csrfmiddlewaretoken':'{{ csrf_token }}'},
+                    filePostName:'myfile',
+                });
+        });
+        $('.article_add_btn').on('click', function () {
+            editor.sync();
+            var title = $('.title').val();
+            var content = $('.content').val();
+            var tag = $('.tag').val();
+            var user=$('.category').val();
+            console.log(tag);
+            console.log(content);
+            var article_info = {
+                'title':title,
+                'content':content,
+                'tag':tag,
+                'category':user,
+            };
+            $.ajax({
+                url:'/article_update/{{ article.pk }}.html/?name={{ name }}',
+                type:'post',
+                data:article_info,
+                success:function (data) {
+                    console.log(data);
+                    location.href = data.url
+                }
+
+            })
+    })
+    </script>
+{% endblock %}

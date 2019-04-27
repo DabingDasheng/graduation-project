@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/jquery-3.3.1.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+	<title>个人详情</title>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+        <img src="/static/img/beijing6.jpg" width="100%" height="100%"/>
+    </div>
+	<style>	
+		table {
+			width: 500px;
+			table-layout: fixed;
+			border-collapse: collapse;
+			font-size: 14px;
+		}
+		table img {
+			width:90px;
+		}
+		tr {
+			height: 40px;
+		}
+		th,td {
+			border:1px solid #999;
+		}
+	</style>
+</head>
+<body>
+<div class="col-md-offset-3 col-md-6">
+	<table>
+		<caption><h3>个人详情</h3></caption>
+
+		<tr>
+			<th>姓名</th>
+            {% for student in student_list %}
+			<td>{{ student.name }}</td>
+            {% endfor %}
+
+			<th>性别</th>
+            {% for student in student_list %}
+			<td colspan="2">{{ student.sex }}</td>
+            {% endfor %}
+
+{#			<td rowspan="3" style="text-align:center">#}
+{#				<img src=".. /../dist/images_one/avatar.jpg" alt="">#}
+{#			</td>#}
+
+		</tr>
+
+		<tr>
+			<th>出生年月</th>
+            {% for student in student_list %}
+			<td>{{ student.birthday|date:"Y-m-d" }}</td>
+            {% endfor %}
+
+			<th>籍贯</th>
+            {% for student in student_list %}
+			<td colspan="2">{{ student.birthplace }}</td>
+            {% endfor %}
+		</tr>
+
+		<tr>
+			<th>政治面貌</th>
+{#                <td></td>#}
+
+
+                {% if student_details_list == None %}
+                    <td></td>
+                {% else %}
+{#                    {% for student in student_details_list %}#}
+                        <td>{{ student_details_list.political }}</td>
+{#                    {% endfor %}#}
+                {% endif %}
+
+
+			<th>民族</th>
+            {% for student in student_list %}
+			<td colspan="2">{{ student.nation }}</td>
+            {% endfor %}
+		</tr>
+
+		<tr>
+			<th>联系电话</th>
+{#            {% for student in student_details_list %}#}
+			<td>{{ student_details_list.phone }}</td>
+{#            {% endfor %}#}
+
+			<th>Email</th>
+{#            {% for student in student_details_list %}#}
+			<td colspan="2">{{ student_details_list.email }}</td>
+{#            {% endfor %}#}
+		</tr>
+
+		<tr>
+			<th>家庭住址</th>
+{#            {% for student in student_details_list %}#}
+			<td>{{ student_details_list.address }}</td>
+{#                山东省济南市历城区洪楼西路2号#}
+{#            {% endfor %}#}
+
+			<th>毕业院校</th>
+			<td colspan="2">湖州师范学院信息工程学院</td>
+		</tr>
+
+		<tr>
+			<th>学历</th>
+			<td>本科</td>
+
+            <th>专业</th>
+{#            {% for student in student_details_list %}#}
+			<td colspan="2">{{ student_details_list.major }}</td>
+{#            {% endfor %}#}
+		</tr>
+
+
+	    <tr style="height:80px">
+			<th>学习工作经历</th>
+{#            {% for student in student_details_list %}#}
+			<td colspan="4">{{ student_details_list.experience }}</td>
+{#            {% endfor %}#}
+		</tr>
+
+		<tr style="height:80px">
+			<th>个人能力</th>
+{#            {% for student in student_details_list %}#}
+			<td colspan="4">{{ student_details_list.ability }}</td>
+{#            {% endfor %}#}
+		</tr>
+
+		<tr style="height:80px">
+			<th>兴趣及爱好</th>
+{#            {% for student in student_details_list %}#}
+			<td colspan="4">{{ student_details_list.hobby }}</td>
+{#            {% endfor %}#}
+		</tr>
+<div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#stuModal">
+        编辑
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="stuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabe">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/student_details/" method="post">
+                        <div class="form-group">
+                            <p>政治面貌: <input type="text" name="political" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>联系电话: <input type="text" name="phone" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>Email: <input type="text" name="email" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>专业: <input type="text" name="major" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>家庭住址: <input type="text" name="address" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>学习工作经历: <input type="text" name="experience" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>个人能力: <input type="text" name="ability" class=" form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>兴趣爱好: <input type="text" name="hobby" class=" form-control"></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	</table>
+</div>
+</body>
+</html>

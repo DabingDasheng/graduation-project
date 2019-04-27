@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block leftbar %}
+    <style>
+
+        .list-group-item {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: -1px;
+            background-color: #ffffff;
+            border: 1px solid #31708f;
+
+    </style>
+    <div class="list-group">
+        <a href="/te_student_list/?page=1" class="list-group-item active student">学生信息管理</a>
+        <a href="/te_course_list/" class="list-group-item course">查看课程</a>
+        <a href="/te_grade_list/" class="list-group-item grade">修改学生成绩</a>
+        <a href="/index_blog/?name={{ request.user_obj }}" class="list-group-item ">学生文章交流园</a>
+        <a href="/new1/" class="list-group-item ">数据可视化界面</a>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/jquery-3.3.1.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <title>大圣学生管理系统</title>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+        <img src="/static/img/玛尔公国.jpg" width="100%" height="100%"/>
+    </div>
+    <style>
+
+        .navbar-default{
+            background-color: #3e8ec9;
+            border-color: #202c3c;
+        }
+
+        .navbar-default .navbar-brand {
+            color: #ffffff;
+        }
+
+        .navbar-default .navbar-nav > li > a {
+            color: #ffffff;
+        }
+        .body{
+            margin-bottom: 2%;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="head">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">学生信息管理系统</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                <ul class="nav navbar-nav navbar-right">
+{#                    {% if username %}#}
+                        <li><a href="#">{{ request.user_obj }}</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/update_password/">修改密码</a></li>
+                                <li><a href="/home/">返回主页</a></li>
+                                <li><a href="/index_student/">成绩可视化</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/logout/">注销</a></li>
+                            </ul>
+                        </li>
+{#                    {% else %}#}
+{#                        <li><a href="/login/">登录</a></li>#}
+{#                        <li><a href="/register/">注册</a></li>#}
+{#                    {% endif %}#}
+
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+{#<div class="body">#}
+{#    <img src="/static/img/xgdl.png" width="100%" height="100%"/>#}
+{#</div>#}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="/st_grade_list/" class="list-group-item active student_grade">成绩查询</a>
+                <a href="/student_details/" class="list-group-item  student_details">个人详情</a>
+                <a href="/index_student/"class="list-group-item index_student">成绩可视化</a>
+                <a href="/st_blog/?name={{ request.user_obj }}" class="list-group-item  ">学生文章主页</a>
+                <a href="/backend/?name={{ request.user_obj }}" class="list-group-item  ">文章后台管理</a>
+                <a href="/index_blog/?name={{ request.user_obj }}" class="list-group-item  ">学生文章交流园</a>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

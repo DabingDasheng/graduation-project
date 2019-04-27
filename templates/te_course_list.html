@@ -1,0 +1,79 @@
+{% extends 'teacher_index.html' %}
+
+{% block content %}
+    <script>
+        $('.student').removeClass('active')
+        $('.course').addClass('active')
+        $('.grade').removeClass('active')
+    </script>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">课程管理</div>
+        <div class="panel-body">
+{#            <a href="/course_add/" class="btn btn-primary pull-right">新增</a>#}
+            <table class="table  table-bordered">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>课程名称</th>
+                    <th>学分</th>
+                    <th>教授老师</th>
+                    <th>学生</th>
+{#                    <th>编辑</th>#}
+{#                    <th>删除</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                {% for course in course_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.credit }}</td>
+                        <td>{{ course.teacher.name }}</td>
+                        <td>
+                            {% for student in course.students.all %}
+                                {% if forloop.last %}
+                                {{ student.name }}
+                                {%  else %}
+                                {{ student.name }} //
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+{#                        <td><a href="/course_update/?id={{course.id}}">编辑</a></td>#}
+{#                        <td><a href="/course_delete/?id={{course.id}}">删除</a></td>#}
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+        <div class="panel-footer">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>本班科目成绩对比图</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="col-md-6 col-lg-offset-3">
+    <div class="panel panel-primary" style="margin-top: 100px">
+        <div class="panel-heading">本班科目成绩对比图</div>
+        <div class="panel-body">
+            <form action="/index5/" method="post">
+                <div class="form-group">
+                    <p>班级:<select name="pclass" class="form-control">
+                        {% for pclass in pclass_list %}
+                            <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                        {% endfor %}
+                    </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>课程名称:<select name="courses" class="form-control" multiple>
+                        {% for course in course_list %}
+
+                            <option value="{{ course.id }}">{{ course.name }}</option>
+
+                        {% endfor %}
+                    </select>
+                    </p>
+                </div>
+                <button type="submit" class="btn btn-primary">点击生成图表</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

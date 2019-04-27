@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+         <img src="/static/img/beijing1.jpg" width="100%" height="100%"/>
+    </div>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <script src="{% static 'js/jquery.min.js' %} "></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <style>
+
+        .panel {
+            border-top: none;
+        }
+
+        .pagination {
+            margin: 0;
+        }
+
+
+        .right {
+            float: right;
+        }
+
+        .article_some span {
+            margin-right: 15px;
+        }
+
+        .wrapcenter {
+            position: relative;
+            width:100%;
+            height: 35px;
+            margin: 0 auto;
+
+        }
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #article_content{
+            white-space:pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="navbar-header">
+        </div>
+        <ul class="nav navbar-nav navbar-left">
+            <li><a href="/st_grade_list/">首页</a></li>
+            <li><a href="JavaScript:void(0)">新闻</a></li>
+            <li><a href="JavaScript:void(0)">招聘</a></li>
+            <li><a href="JavaScript:void(0)">找找看</a></li>
+            <li><a href="JavaScript:void(0)">知识库</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="JavaScript:void(0)" class="nav_li">{{ name }}</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            {% block blog_left %}
+            
+            {% endblock %}
+        </div>
+        <div class="col-md-10">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="{% url 'backend' %}?name={{ name }}">文章</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="article">
+                    {% block article %}
+
+                    {% endblock %}
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

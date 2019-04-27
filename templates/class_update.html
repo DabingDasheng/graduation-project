@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <title>编辑班级</title>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+         <img src="/static/img/beijing8.jpg" width="100%" height="100%"/>
+    </div>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-top: 10%">
+        <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+        <div class="panel-heading">编辑班级信息</div>
+
+                <div class="panel-body">
+                    <form action="/class_update/?id={{ pclass.id }}" method="post">
+                    <p><input type="hidden" name="id" value="{{ pclass.id }}"> </p>
+               
+                       <div class="form-group">
+                            <p>班级编号: <input type="text" name="name" class="form-control" value="{{ pclass.name }}"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>所属院系: <input type="text" name="faculty" class=" form-control" value="{{ pclass.faculty }}"></p>
+                        </div>
+
+
+                <input type="submit" value="确认修改" class="btn btn-primary">
+            </form>
+
+                </div>
+
+
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

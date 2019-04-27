@@ -1,0 +1,101 @@
+{% extends 'student_index.html' %}
+
+{% block content %}
+    <script>
+        $('.student').removeClass('active')
+        $('.course').removeClass('active')
+        $('.grade').addClass('active')
+    </script>
+    <div class="panel panel-primary">
+        <div class="panel-heading">成绩管理</div>
+        <div class="panel-body">
+{#            <a href="/grade_add/" class="btn btn-primary pull-right">新增</a>#}
+            <table class="table  table-bordered">
+                <thead>
+                <tr>
+{#                    <th>id</th>#}
+{#                    <th>学生id</th>#}
+                    <th>学生学号</th>
+                    <th>学生姓名</th>
+                    <th>课程id</th>
+                    <th>课程名称</th>
+                    <th>分数</th>
+{#                    <th>编辑</th>#}
+{#                    <th>删除</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                {% for grade in current_page %}
+                    <tr>
+{#                        <td>{{ forloop.counter }}</td>#}
+{#                        <td>{{ grade.student.id }}</td>#}
+                        <td>{{ grade.student.student_number }}</td>
+                        <td>{{ grade.student.name }}</td>
+                        <td>{{ grade.course.id }}</td>
+                        <td>{{ grade.course.name }}</td>
+                        <td>{{ grade.grade }}</td>
+
+
+{#                        <td><a href="/te_grade_update/?id={{grade.id}}">编辑</a></td>#}
+{#                        <td><a href="/grade_delete/?id={{grade.id}}">删除</a></td>#}
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+        <div class="panel-footer">
+            <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if current_page.has_previous %}
+                    <li>
+                        {#                    <a href="/grade_list/?page={{ current_page_num|add:-1 }}" aria-label="Previous">#}
+                        <a href="/st_grade_list/?page={{ current_page.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for foo in paginator.page_range %}
+                    {% if current_page_num == foo %}
+                        {# 当前页码等于循环到的页码数,变色#}
+                        <li class="active"><a href="/st_grade_list/?page={{ foo }}">{{ foo }}</a></li>
+                    {% else %}
+                        <li><a href="/st_grade_list/?page={{ foo }}">{{ foo }}</a></li>
+                    {% endif %}
+
+                {% endfor %}
+
+
+
+                {% if current_page.has_next %}
+                    <li>
+                        {#                    <a href="/grade_list/?page={{ current_page_num|add:1 }}" aria-label="Next">#}
+                        <a href="/st_grade_list/?page={{ current_page.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="" aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        </div>
+    </div>
+
+
+{% endblock %}

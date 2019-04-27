@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ cur_article.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <script src="{% static 'js/jquery.min.js' %} "></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <style>
+        body {
+            background-image: url('/static/img/bg2.png');
+            margin: 0;
+            color: #000000;
+            font-size: 13px;
+            font-family: georgia, Verdana, Helvetica, Arial;
+            line-height: 22px;
+            font-style: normal;
+            word-break: break-all;
+            SCROLLBAR-FACE-COLOR: #111;
+            SCROLLBAR-HIGHLIGHT-COLOR: #555;
+            SCROLLBAR-SHADOW-COLOR: #555;
+            SCROLLBAR-3DLIGHT-COLOR: #111;
+            SCROLLBAR-ARROW-COLOR: #555;
+            SCROLLBAR-TRACK-COLOR: #111;
+            SCROLLBAR-DARKSHADOW-COLOR: #4c4c4c
+        }
+
+        .right {
+            float: right;
+        }
+
+        .article_right span {
+            margin-right: 7px;
+        }
+
+        .right span {
+            margin-right: 15px;
+        }
+
+        textarea {
+            width: 450px;
+            height: 300px;
+            font-size: 13px;
+            border: 1px solid #ccc;
+        }
+        .wrapcenter {
+            position: relative;
+            width:100%;
+            height: 35px;
+            margin: 0 auto;
+
+        }
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>
+    <span>
+    {{ cur_article.student.name }}
+</span>
+
+</h1>
+<nav class="navbar navbar-info">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/st_grade_list">首页</a>
+            <a class="navbar-brand" href="JavaScript:void(0)">新闻</a>
+            <a class="navbar-brand" href="JavaScript:void(0)">招聘</a>
+            <a class="navbar-brand" href="JavaScript:void(0)">找找看</a>
+            <a class="navbar-brand" href="JavaScript:void(0)">知识库</a>
+        </div>
+    </div>
+</nav>
+<hr>
+<table class="table">
+    <thead>
+    <tr>
+        <td><h4><a href="/article/{{ cur_article.nid }}.html/?name={{ cur_article.student.name }}">{{ cur_article.title }}</a></h4></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="height: 800px">
+        <td>{{ cur_article.content|safe }}</td>
+    </tr>
+    <tr>
+        <td style="padding-top: 40px;"><h4>评论列表</h4></td>
+    </tr>
+    {% for foo in commit_list %}
+        <tr>
+            <td>
+                <span>#{{ forloop.counter }}楼</span>
+                <span style="margin-left: 15px;">{{ foo.create_time|date:'Y-m-d H:i:s' }}</span>
+                <span style="margin-left: 15px;">{{ foo.user }}</span>
+                <p class="right">
+                    <a href="javascript:void(0)"  class="reply" username="{{ foo.user }}" commit_id="{{ foo.nid }}"><span>回复</span></a>
+                    <a href="javascript:void(0)" class="quote" username="{{ foo.user }}" commit_id="{{ foo.nid }} " content="{{ foo.content }}"><span>引用</span></a>
+                </p>
+                <p style="margin-top: 20px;"><span style="margin-left: 35px; ">
+                    {{ foo.content }}</span>
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <p class="right">
+{#                    <a href="javascript:void(0)"><span>刷新评论</span></a>#}
+{#                    <a href="javascript:void(0)"><span>刷新页面</span></a>#}
+                    <a href="#"><span>返回顶部</span></a>
+                </p>
+
+                <h4 class="glyphicon glyphicon-ice-lolly-tasted" style="margin-top: 20px;">发表评论</h4>
+
+                <p>
+                昵称：
+                        <input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50"
+                              value="{{ name }}">
+                </p>
+                <div class="commentbox_main">
+                    <div class="commentbox_title">
+                        <div class="commentbox_title_left">评论内容：</div>
+                    </div>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                            <textarea id="tbCommentBody" class="comment_textarea"></textarea>
+                        
+
+                    </form>
+                </div>
+                <p>
+                    <input id="btn_comment" type="button" value="提交评论">
+{#                    <a href="javascript:void(0);" title="订阅后有新评论时会邮件通知您">订阅评论</a>#}
+                </p>
+            </td>
+        </tr>
+        <tr>
+        <td class="wrapcenter">
+
+            <p class="center">Copyright ©2018 {{ name }}</p>
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+
+</body>
+<script>
+    $(function () {
+        $('#btn_comment').on('click',function () {
+                var comment = $('.comment_textarea').val();
+                var comment_info = {
+                    'comment': comment,
+                    'id':'{{ cur_article.nid }}',
+                    'name':'{{ name }}'
+                };
+                $.ajax({
+                    url: '/comment_add/',
+                    type: 'post',
+                    data: comment_info,
+                    success: function (data) {
+                        console.log(data);
+                        location.reload()
+                    }
+                })
+        });
+
+
+
+        $('.reply').click(function () {
+            $('.comment_textarea').focus();
+            var val = '@' + $(this).attr('username') + '\n';
+            $('.comment_textarea').val(val);
+            var id = $(this).attr('commit_id');
+            nid=id
+        });
+        $('.quote').click(function () {
+            $('.comment_textarea').focus();
+            var val = $(this).attr('content');
+            $('.comment_textarea').val(val);
+        });
+    });
+</script>
+</html>

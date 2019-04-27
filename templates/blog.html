@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人主页</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <script src="{% static 'js/jquery.min.js' %} "></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+    <style>
+        body {
+            background-image: url('/static/img/bg.jpg');
+            background-repeat: repeat-yes;
+            margin: 0;
+            color: #aaa;
+            font-size: 13px;
+            font-family: georgia, Verdana, Helvetica, Arial;
+            line-height: 22px;
+            font-style: normal;
+            word-break: break-all;
+            line-height: 150%;
+            SCROLLBAR-FACE-COLOR: #111;
+            SCROLLBAR-HIGHLIGHT-COLOR: #555;
+            SCROLLBAR-SHADOW-COLOR: #555;
+            SCROLLBAR-3DLIGHT-COLOR: #111;
+            SCROLLBAR-ARROW-COLOR: #555;
+            SCROLLBAR-TRACK-COLOR: #111;
+            SCROLLBAR-DARKSHADOW-COLOR: #4c4c4c
+        }
+
+        .right {
+            float: right;
+        }
+
+        .article_right span {
+            margin-right: 7px;
+        }
+
+        .pagination {
+            margin: 0;
+        }
+
+        .wrapcenter {
+            position: relative;
+            width: 100%;
+            height: 35px;
+            margin: 0 auto;
+
+        }
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    </style>
+</head>
+<body>
+<h1>{{ name }}</h1>
+<nav class="navbar navbar-info">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/st_grade_list">首页</a>
+        </div>
+    </div>
+</nav>
+<hr>
+{% for article in article_list %}
+    <table class="table">
+        <thead>
+        <tr>
+            <td><h4><a href="/article/{{ article.nid }}.html/?name={{ article.student.name }}">{{ article.title }}</a></h4></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="media">
+                    <div class="media-body">
+                        {{ article.desc }}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="margin-top: 10px;" class="article_right">
+                    <span>posted&nbsp;@</span>
+                    <span>发布于{{ article.create_time|date:'Y-m-d H:i:s' }}</span>
+                    <span><a href="#">{{ article.student.name }}</a></span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endfor %}
+
+
+</body>
+</html>

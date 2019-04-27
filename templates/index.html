@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>班级男女生比例</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="col-md-6 col-lg-offset-3">
+    <div class="panel panel-primary" style="margin-top: 100px">
+        <div class="panel-heading">班级男女生比例</div>
+        <div class="panel-body">
+            <form action="/index/" method="post">
+                <div class="form-group">
+                    <p>班级:<select name="pclass" class="form-control">
+                        {% for pclass in pclass_list %}
+                            <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                        {% endfor %}
+                    </select>
+                    </p>
+                </div>
+                <button type="submit" class="btn btn-primary">点击生成图表</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <title>编辑教师</title>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+         <img src="/static/img/beijing8.jpg" width="100%" height="100%"/>
+    </div>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-top: 10%">
+        <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+        <div class="panel-heading">编辑教师信息</div>
+
+                <div class="panel-body">
+                    <form action="/teacher_update/?id={{ teacher.id }}" method="post">
+                    <p><input type="hidden" name="id" value="{{ teacher.id }}"> </p>
+               
+                       <div class="form-group">
+                            <p>姓名: <input type="text" name="name" class="form-control" value="{{ teacher.name }}"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>性别: <input type="text" name="sex" class=" form-control" value="{{ teacher.sex }}"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>职称: <input type="text" name="title" class=" form-control" value="{{ teacher.title }}"></p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <p>通讯地址: <input type="text" name="address" class=" form-control" value="{{ teacher.address }}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <p>联系电话: <input type="text" name="phone" class=" form-control" value="{{ teacher.phone }}"></p>
+                        </div>
+
+
+                <input type="submit" value="确认修改" class="btn btn-primary">
+            </form>
+
+                </div>
+
+
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

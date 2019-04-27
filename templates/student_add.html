@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <title>新增学生</title>
+    <div style="position:fixed; z-index: -1; width: 100%; height: 100%; left: 0px; top:0px;">
+         <img src="/static/img/beijing1.jpg" width="100%" height="100%"/>
+    </div>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-top: 5%">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">添加学生</div>
+
+                <div class="panel-body">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <p>学号: <input type="text" name="student_number" class="form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>姓名: <input type="text" name="name" class="form-control"></p>
+                        </div>
+                        <div class="form-group">
+                            <p>性别: <input type="text" name="sex" class=" form-control"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <p>班级:<select name="pclass" class="form-control">
+                                {% for pclass in pclass_list %}
+                                    <option value="{{ pclass.id }}">{{ pclass.name }}</option>
+                                {% endfor %}
+                            </select>
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <p>民族: <input type="text" name="nation" class=" form-control"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <p>出生日期: <input type="date" name="birthday" class=" form-control"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <p>生源地: <input type="text" name="birthplace" class=" form-control"></p>
+                        </div>
+
+
+                        <input type="submit" value="提交" class="btn btn-primary">
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% extends 'backend_base.html' %}
+
+{% block blog_left %}
+    <div class="list-group">
+        <a href="JavaScript:void(0)" class="list-group-item active">操作</a>
+        <a href="{% url 'article_add' %}?name={{ name }}" class="list-group-item">添加新文章</a>
+        <a href="JavaScript:void(0)" class="list-group-item">草稿箱</a>
+        <a href="JavaScript:void(0)" class="list-group-item">设置默认编辑器</a>
+        <a href="JavaScript:void(0)" class="list-group-item">备份文章</a>
+    </div>
+{% endblock %}
+
+{% block article %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td><span>文章(默认不在您的博客首页显示，主要用于转载，发布原创博文要通过“随笔”) </span></td>
+                </tr>
+                <tr>
+                    <td class="article_some">
+                        <span>标题</span>
+                        <p class="right">
+                            <span>发布状态 </span>
+                            <span>操作</span>
+                            <span>操作</span>
+                        </p>
+
+                    </td>
+                </tr>
+                {% for article in current_page %}
+                    <tr>
+                        <td>
+                            <a href="/article/{{ article.nid }}.html/?name={{ article.student.name }}">{{ article.title }}</a>
+                            <p class="right">
+                                <span style="margin-right: 40px;">已发布 </span>
+                                <span style="margin-right: 15px;"><a href="{% url 'article_update' pk=article.pk %}?name={{ article.student.name }}">编辑</a></span>
+                                <span style="margin-right: 15px;"><a href="{% url 'article_del' pk=article.pk %}?name={{ article.student.name }}">删除</a></span>
+                            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+                <div class="wrapcenter">
+                    <ul class="pagination pagination-sm center">
+                        {% if current_page.has_previous %}
+                            <li>
+                                <a href="?page={{ current_page.previous_page_number }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">上一页</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="JavaScript:void(0)" aria-label="Previous">
+                                    <span aria-hidden="true">上一页</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% for page in page_range %}
+                            {% if current_page_num == page %}
+                                <li class="active"><a href="?page={{ page }}">{{ page }}</a>
+                                </li>
+                            {% else %}
+                                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                            {% endif %}
+
+                        {% endfor %}
+                        {% if current_page.has_next %}
+                            <li>
+                                <a href="?page={{ current_page.next_page_number }}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">下一页</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="JavaScript:void(0)" aria-label="Next">
+                                    <span aria-hidden="true">下一页</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+
+
+        </div>
+    </div>
+{% endblock %}
+
